@@ -1,9 +1,9 @@
 const express = require('express')
-const router = express.Router()
 const path = require('path')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const Twit = require('twit')
+const cors = require('cors')
 const client = new Twit({
   consumer_key: 'YKROgK9sAHpO0cWgukYbza1rl',
   consumer_secret: 'PnUfmtBfjIQUW76ODq3DjESz7fYmw7kTcPvAsPJAgCSt6UV3yX',
@@ -17,6 +17,10 @@ const port = process.env.PORT || '3001'
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -24,7 +28,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.get('/', (req, res) => {
   res.render('index', { title: 'SozoPro' })
 })
-
 
 app.get('/auth', (req, res) => {
   client.get('account/verify_credentials')

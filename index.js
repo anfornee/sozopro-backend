@@ -12,13 +12,13 @@ const client = new Twit({
 })
 
 const app = express()
-const port = process.env.PORT || '3001'
+const port = process.env.PORT || '3002'
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3003',
   credentials: true
 }))
 app.use(logger('dev'))
